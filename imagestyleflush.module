@@ -48,7 +48,7 @@ function imagestyleflush_image_style_list($variables) {
   $rows = array();
   foreach ($styles as $style) {
     $row = array();
-    $row[] = l($style['name'], 'admin/config/media/image-styles/edit/' . $style['name']);
+    $row[] = l($style['label'], 'admin/config/media/image-styles/edit/' . $style['name']);
     $link_attributes = array(
       'attributes' => array(
         'class' => array('image-style-link'),
@@ -103,7 +103,7 @@ function imagestyleflush_form($form, &$form_state, $style = NULL) {
           '#value' => $style['name'],
         ),
       ),
-      t('Are you sure you want to flush @style image style?', array('@style' => $style['name'])),
+      t('Are you sure you want to flush the %style image style?', array('%style' => $style['label'])),
       'admin/config/media/image-styles',
        t('This action cannot be undone.'),
       t('Flush'), t('Cancel')
