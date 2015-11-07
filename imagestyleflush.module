@@ -154,7 +154,7 @@ function imagestyleflush_batch_finished($success, $results, $operations) {
     drupal_set_message(t('Image styles was successfully flushed.'));
   }
   else {
-    drupal_set_message(t('An error occurred while flushing the image caches.', 'error'));
+    drupal_set_message(t('An error occurred while flushing the image caches.'), 'error');
   }
   drupal_goto('admin/config/media/image-styles');
 }
