@@ -36,6 +36,8 @@ Usage
 You can flush image styles under Administration -> Configuration -> Media
 -> Image styles
 
+Note that this module only flushes images. It does not rebuild them.
+
 
 Known problems
 --------------
