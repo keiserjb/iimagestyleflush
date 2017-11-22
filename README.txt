@@ -11,6 +11,7 @@ Features
 
   - Flush all image styles
   - Flush each individual image style
+  - Integrates with the admin_menu module
 
 
 Dependencies
