@@ -14,7 +14,7 @@ function imagestyleflush_menu() {
     'description' => 'Flush all image styles.',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('imagestyleflush_form'),
-    'access arguments' => array('administer image styles'),
+    'access arguments' => array('flush image styles'),
     'type' => MENU_LOCAL_ACTION,
     'weight' => 3,
   );
@@ -23,10 +23,22 @@ function imagestyleflush_menu() {
     'description' => 'Flush an image style.',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('imagestyleflush_form', 5),
-    'access arguments' => array('administer image styles'),
+    'access arguments' => array('flush image styles'),
   );
 
   return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function imagestyleflush_permission() {
+  return array(
+    'flush image styles' => array(
+      'title' => t('Flush image styles'),
+      'description' => t('Allow users to flush image styles.'),
+    ),
+  );
 }
 
 /**
@@ -161,5 +173,12 @@ function imagestyleflush_batch_finished($success, $results, $operations) {
   else {
     drupal_set_message(t('An error occurred while flushing the image caches.'), 'error');
   }
-  drupal_goto('admin/config/media/image-styles');
+
+  // Send the user to the right place depending on their access.
+  if (user_access('administer image styles')) {
+    drupal_goto('admin/config/media/image-styles');
+  }
+  else {
+    drupal_goto();
+  }
 }

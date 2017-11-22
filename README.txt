@@ -29,6 +29,8 @@ Install
 2) In your Drupal site, enable the module under Administration -> Modules
    (/admin/modules).
 
+3) Visit the Administration -> People -> Permissions page to give the
+   appropriate roles access to flush image styles.
 
 Usage
 -----
