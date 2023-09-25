@@ -1,5 +1,5 @@
 
-## Image style flush
+# Image style flush
 ==================
 
 This module will allow Drupal to flush all image styles at once or flush each
