@@ -6,13 +6,13 @@
  */
 
 /**
- * Implements hook_menu().
+ * Implements hook_menu().().
  */
 function imagestyleflush_menu() {
   $items['admin/config/media/image-styles/flush'] = array(
     'title' => 'Flush all styles',
     'description' => 'Flush all image styles.',
-    'page callback' => 'drupal_get_form',
+    'page callback' => 'backdrop_get_form',
     'page arguments' => array('imagestyleflush_form'),
     'access arguments' => array('flush image styles'),
     'type' => MENU_LOCAL_ACTION,
@@ -21,7 +21,7 @@ function imagestyleflush_menu() {
   $items['admin/config/media/image-styles/flush/%image_style'] = array(
     'title' => 'Flush style',
     'description' => 'Flush an image style.',
-    'page callback' => 'drupal_get_form',
+    'page callback' => 'backdrop_get_form',
     'page arguments' => array('imagestyleflush_form', 5),
     'access arguments' => array('flush image styles'),
   );
@@ -30,7 +30,7 @@ function imagestyleflush_menu() {
 }
 
 /**
- * Implements hook_permission().
+ * Implements hook_permission().().
  */
 function imagestyleflush_permission() {
   return array(
@@ -42,7 +42,7 @@ function imagestyleflush_permission() {
 }
 
 /**
- * Implements hook_theme_registry_alter().
+ * Implements hook_theme_registry_alter().().
  */
 function imagestyleflush_theme_registry_alter(&$theme_registry) {
   $theme_registry['image_style_list']['function'] = 'imagestyleflush_image_style_list';
@@ -59,7 +59,10 @@ function imagestyleflush_image_style_list($variables) {
   // Account for an extra column added by the image_styles_admin submodule of
   // the imagecache_actions module.
   $colspan = module_exists('image_styles_admin') ? 4 : 3;
-  $header = array(t('Style name'), t('Settings'), array('data' => t('Operations'), 'colspan' => $colspan));
+  $header = array(t('Style name'), t('Settings'), array(
+      'data' => t('Operations'),
+      'colspan' => $colspan,
+    ));
   $rows = array();
   foreach ($styles as $style) {
     $row = array();
@@ -92,9 +95,9 @@ function imagestyleflush_image_style_list($variables) {
 
   if (empty($rows)) {
     $rows[] = array(array(
-      'colspan' => $colspan,
-      'data' => t('There are currently no styles. <a href="!url">Add a new one</a>.', array('!url' => url('admin/config/media/image-styles/add'))),
-    ));
+        'colspan' => $colspan,
+        'data' => t('There are currently no styles. <a href="!url">Add a new one</a>.', array('!url' => url('admin/config/media/image-styles/add'))),
+      ));
   }
 
   return theme('table', array('header' => $header, 'rows' => $rows));
@@ -113,25 +116,25 @@ function imagestyleflush_form($form, &$form_state, $style = NULL) {
   if (isset($style)) {
     $form = confirm_form(
       array(
-        'style_name' => array(
-          '#type' => 'value',
-          '#value' => $style['name'],
-        ),
+      'style_name' => array(
+        '#type' => 'value',
+        '#value' => $style['name'],
       ),
-      t('Are you sure you want to flush the %style image style?', array('%style' => $style['label'])),
-      'admin/config/media/image-styles',
+    ), 
+      t('Are you sure you want to flush the %style image style?', array('%style' => $style['label'])), 
+      'admin/config/media/image-styles', 
       '<em>' . t('Note: this will only flush the images. It will not rebuild them.')
-        . '</em><br><br>' . t('This action cannot be undone.'),
+        . '</em><br><br>' . t('This action cannot be undone.'), 
       t('Flush'), t('Cancel')
     );
   }
   else {
     $form = confirm_form(
-      NULL,
-      t('Are you sure you want to flush all image styles?'),
-      'admin/config/media/image-styles',
+      NULL, 
+      t('Are you sure you want to flush all image styles?'), 
+      'admin/config/media/image-styles', 
       '<em>' . t('Note: this will only flush the images. It will not rebuild them.')
-        . '</em><br><br>' . t('This action cannot be undone.'),
+        . '</em><br><br>' . t('This action cannot be undone.'), 
       t('Flush'), t('Cancel')
     );
   }
@@ -156,7 +159,7 @@ function imagestyleflush_form_submit($form, &$form_state) {
   }
 
   // Redirect to the destination URL.
-  $destination = drupal_get_destination();
+  $destination = backdrop_get_destination();
   if ($destination['destination'] != current_path()) {
     $operations[] = array('imagestyleflush_batch_destination_redirect', $destination);
   }
@@ -183,35 +186,35 @@ function imagestyleflush_batch_destination_redirect($destination, &$context) {
  */
 function imagestyleflush_batch_finished($success, $results, $operations) {
   if ($success) {
-    drupal_set_message(t('Image styles were successfully flushed.'));
+    backdrop_set_message(t('Image styles were successfully flushed.'));
   }
   else {
-    drupal_set_message(t('An error occurred while flushing the image caches.'), 'error');
+    backdrop_set_message(t('An error occurred while flushing the image caches.'), 'error');
   }
 
   if (!empty($results['redirect'])) {
-    drupal_goto($results['redirect']);
+    backdrop_goto($results['redirect']);
   }
   else {
     // Send the user to the right place depending on their access.
     if (user_access('administer image styles')) {
-      drupal_goto('admin/config/media/image-styles');
+      backdrop_goto('admin/config/media/image-styles');
     }
     else {
-      drupal_goto();
+      backdrop_goto();
     }
   }
 }
 
 /**
- * Implements hook_admin_menu_output_build().
+ * Implements hook_admin_menu_output_build().().
  */
 function imagestyleflush_admin_menu_output_build(&$content) {
   // Add link to the icon menu to flush image styles.
   if (isset($content['icon'])) {
     $styles = image_styles();
     $access = user_access('flush image styles');
-    $destination = drupal_get_destination();
+    $destination = backdrop_get_destination();
 
     $style_links = array();
     foreach ($styles as $style) {
