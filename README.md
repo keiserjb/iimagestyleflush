@@ -14,12 +14,6 @@ Features
   - Integrates with the admin_menu module
 
 
-Dependencies
-------------
-
-The image (core) module.
-
-
 Install
 -------
 
