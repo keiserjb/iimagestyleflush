@@ -2,7 +2,7 @@
 # Image style flush
 ==================
 
-This module will allow Drupal to flush all image styles at once or flush each
+This module will allow Backdrop to flush all image styles at once or flush each
 individual image style right from the administrative interface.
 
 
