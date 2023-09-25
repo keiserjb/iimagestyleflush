@@ -1,12 +1,12 @@
 
-Image style flush
+## Image style flush
 ==================
 
 This module will allow Drupal to flush all image styles at once or flush each
 individual image style right from the administrative interface.
 
 
-Features
+## Features
 --------
 
   - Flush all image styles
@@ -14,20 +14,12 @@ Features
   - Integrates with the admin_menu module
 
 
-Install
--------
+## INSTALLATION
 
-1) Copy the imagestyleflush folder to the modules folder in your installation.
-   Usually this is sites/all/modules.
-   Or use the UI and install it via admin/modules/install.
+- Install this module using the official Backdrop CMS instructions at
+  [](https://docs.backdropcms.org/documentation/extend-with-modules).
 
-2) In your Drupal site, enable the module under Administration -> Modules
-   (/admin/modules).
-
-3) Visit the Administration -> People -> Permissions page to give the
-   appropriate roles access to flush image styles.
-
-Usage
+## Usage
 -----
 
 You can flush image styles under Administration -> Configuration -> Media
@@ -36,13 +28,30 @@ You can flush image styles under Administration -> Configuration -> Media
 Note that this module only flushes images. It does not rebuild them.
 
 
-Known problems
+## Known problems
 --------------
 
 Private file image styles can't be flushed with this module.
 
+## Differences from Drupal 7
 
-Credit
+Capabilities should be the same.
+
+## Issues
+
+Bugs and feature requests should be reported in [the Issue Queue](https://github.com/backdrop-contrib/imagestyleflush/issues).
+
+## Current Maintainers
+
+<!-- - [Justin Keiser](https://github.com/keiserjb). -->
+
+## Credits
 ------
+Ported to Backdrop CMS by [Justin Keiser](https://github.com/keiserjb).
+The Drupal version was written by [Stepan Kuzmin](https://www.drupal.org/u/tostepankuzmingmailcom) and is maintained by [Hargobind Khalsa](https://www.drupal.org/u/hargobind).
 
-This module was written by Stepan Kuzmin and is maintained by Hargobind Khalsa.
+License
+-------
+
+This project is GPL v2 software.
+See the LICENSE.txt file in this directory for complete text.
